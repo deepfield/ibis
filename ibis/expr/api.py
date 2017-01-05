@@ -2048,12 +2048,10 @@ def projection(table, exprs):
     -------
     projection : TableExpr
     """
-    import ibis.expr.analysis as L
-
     if isinstance(exprs, (Expr,) + six.string_types):
         exprs = [exprs]
 
-    projector = L.Projector(table, exprs)
+    projector = _L.Projector(table, exprs)
 
     op = projector.get_result()
     return TableExpr(op)
