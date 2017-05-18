@@ -152,8 +152,9 @@ class ImpalaConnection(object):
             if cur.database != self.database:
                 cur.con.close()
                 cur = self._new_cursor()
-            if cur.options != self.options):
-                cur.set_options(options)
+            if cur.options != self.options:
+                cur.options = options
+                cur.set_options()
             cur.released = False
 
             return cur
