@@ -149,9 +149,11 @@ class ImpalaConnection(object):
     def _get_cursor(self):
         try:
             cur = self.connection_pool.get(False)
-            if (cur.database != self.database or
-                    cur.options != self.options):
+            if cur.database != self.database:
+                cur.con.close()
                 cur = self._new_cursor()
+            if cur.options != self.options):
+                cur.set_options(options)
             cur.released = False
 
             return cur
